@@ -1,5 +1,7 @@
 import React from "react";
 
+import CharacterItem from "./CharacterItem";
+
 const CharacterGrid = (props) => {
   if (props.isLoading) {
     return <h1> Loading...</h1>;
@@ -8,7 +10,7 @@ const CharacterGrid = (props) => {
   return (
     <section className="cards">
       {props.items.map((item) => (
-        <h1 key={item.char_id}>{item.name}</h1>
+        <CharacterItem key={item.char_id} item={item}/>
       ))}
     </section>
   );
