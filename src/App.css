@@ -40,6 +40,17 @@
   header img {
     width: 200px;
   }
+
+  footer {
+    height: 200px;
+    margin-top: 1rem;
+    padding: 1rem;
+    /* background-color: rgb(235, 195, 64); */
+    /* position: fixed; */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
   
   .center {
     display: flex;
