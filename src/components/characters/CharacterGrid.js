@@ -1,10 +1,11 @@
 import React from "react";
 
 import CharacterItem from "./CharacterItem";
+import Spinner from "../ui/Spinner";
 
 const CharacterGrid = (props) => {
   if (props.isLoading) {
-    return <h1> Loading...</h1>;
+    return <Spinner/>;
   }
 
   return (
