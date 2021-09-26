@@ -9,7 +9,7 @@ import "./App.css";
 
 const App = () => {
   const [items, setItems] = useState([]);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const { isLoading, error, sendRequest: fetchItems } = useHttp();
 
   useEffect(() => {
@@ -30,8 +30,8 @@ const App = () => {
         });
       }
 
-     setItems(loadedItems);
-     
+      setItems(loadedItems);
+
       // setItems(itemResult);
     };
 
@@ -46,12 +46,19 @@ const App = () => {
   };
 
   return (
-    <div className="container">
-      <Header />
-      <Search getQuery={getQueryHandler} />
-      <CharacterGrid isLoading={isLoading} error={error} items={items} fetchItems={fetchItems} />
-      <Footer />
-    </div>
+    <>
+      <div className="container">
+        <Header />
+        <Search getQuery={getQueryHandler} />
+        <CharacterGrid
+          isLoading={isLoading}
+          error={error}
+          items={items}
+          fetchItems={fetchItems}
+        />
+      </div>
+        <Footer />
+    </>
   );
 };
 
