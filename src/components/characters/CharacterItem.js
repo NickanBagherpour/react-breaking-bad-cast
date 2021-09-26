@@ -1,8 +1,16 @@
 import React from 'react'
+import {useHistory} from 'react-router-dom'
 
 const CharacterItem = ({ item }) => {
+
+  let history = useHistory();
+
+  const cardClickHandler = () => {
+    history.push(`/profile/${item.char_id}`)
+  }
+
   return (
-    <div className='card'>
+    <div className='card' onClick={cardClickHandler}>
       <div className='card-inner'>
         <div className='card-front'>
           <img src={item.img} alt='' />
