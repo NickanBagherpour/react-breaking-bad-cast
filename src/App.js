@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 
+import useHttp from "./hooks/use-http";
 import Header from "./components/ui/Header";
 import CharacterGrid from "./components/characters/CharacterGrid";
 import Search from "./components/ui/Search";
@@ -9,22 +9,37 @@ import "./App.css";
 
 const App = () => {
   const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
+  const { isLoading, error, sendRequest: fetchItems } = useHttp();
 
   useEffect(() => {
-    const fetchItems = async () => {
-      const result = await axios(
-        `https://www.breakingbadapi.com/api/characters?name=${query}`
-      );
+    const transformResults = (itemResult) => {
+      const loadedItems = [];
 
-      // console.log(result.data);
-      setItems(result.data);
-      setIsLoading(false);
+      // console.log(itemResult);
+
+      for (let item of itemResult) {
+        loadedItems.push({
+          char_id: item.char_id,
+          name: item.name,
+          nickname: item.nickname,
+          img: item.img,
+          portrayed: item.portrayed,
+          status: item.status,
+          birthday: item.birthday,
+        });
+      }
+
+     setItems(loadedItems);
+     
+      // setItems(itemResult);
     };
 
-    fetchItems();
-  }, [query]);
+    fetchItems(
+      { url: `https://www.breakingbadapi.com/api/characters?name=${query}` },
+      transformResults
+    );
+  }, [fetchItems, query]);
 
   const getQueryHandler = (q) => {
     setQuery(q);
@@ -34,8 +49,8 @@ const App = () => {
     <div className="container">
       <Header />
       <Search getQuery={getQueryHandler} />
-      <CharacterGrid isLoading={isLoading} items={items} />
-      <Footer/>
+      <CharacterGrid isLoading={isLoading} error={error} items={items} fetchItems={fetchItems} />
+      <Footer />
     </div>
   );
 };
