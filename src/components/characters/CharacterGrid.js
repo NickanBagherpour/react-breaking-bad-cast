@@ -19,9 +19,9 @@ const CharacterGrid = (props) => {
     );
   }
 
-  if (props.items.length == 0) {
+  if (props.items.length === 0) {
     return (
-      <div className="">
+      <div>
         <h2 className="center">No data found. search some thing else !</h2>
       </div>
     );
