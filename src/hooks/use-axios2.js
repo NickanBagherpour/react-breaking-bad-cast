@@ -1,8 +1,9 @@
-import { useState, useCallback, useReducer } from "react";
+import {  useCallback, useReducer } from "react";
 
 import api from "../components/services/api";
 
 const ACTIONS = {
+  CALL_API: "call-api",
   SUCCESS: "success",
   ERROR: "error",
   LOADING: "loading",
@@ -12,12 +13,16 @@ const ACTIONS = {
 const userDetailsReducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.LOADING: {
+      // console.log(ACTIONS.LOADING);
+
       return {
         ...state,
         loading: true,
       };
     }
     case ACTIONS.SUCCESS: {
+      // console.log(ACTIONS.SUCCESS);
+
       let results;
       let result;
 
@@ -36,6 +41,8 @@ const userDetailsReducer = (state, action) => {
       };
     }
     case ACTIONS.ERROR: {
+      // console.log(ACTIONS.ERROR);
+
       return {
         ...state,
         loading: false,
@@ -53,13 +60,19 @@ const initialState = {
   error: null,
 };
 
-const useAxios = () => {
+const useAxios2 = () => {
   const [state, dispatch] = useReducer(userDetailsReducer, initialState);
   const { results, result, pending, loading, error } = state;
+
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState(null);
+  // console.log("useAxios");
 
   const request = useCallback(async (requestConfig, applyData) => {
     dispatch({ type: ACTIONS.LOADING });
 
+    // setIsLoading(true);
+    // setError(null);
     try {
       const response = await api(requestConfig.url, {
         method: requestConfig.method ? requestConfig.method : "GET",
@@ -72,12 +85,9 @@ const useAxios = () => {
       }
 
       const data = await response.data;
+      dispatch({ type: ACTIONS.SUCCESS, data: response.data });
 
-      console.log(data);
-      dispatch({ type: ACTIONS.SUCCESS, data: data });
-
-      if (applyData !== undefined) applyData(data);
-
+      applyData(data);
     } catch (err) {
       // setError(err.error || err.message || "Something went wrong!");
       dispatch({
@@ -92,8 +102,8 @@ const useAxios = () => {
     loading,
     error,
     request,
-    results,
     result,
+    results,
   };
 };
 

@@ -1,0 +1,34 @@
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  margin: auto;
+  /* text-align: center; */
+}
+
+.card .avatar {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: contain;
+}
+
+.title {
+  font-size: 2rem;
+  text-align: center;
+  padding: 25px;
+}
+
+.info-tile {
+    padding: 5px;
+    margin: 5px;
+}
+
+.info-tile span {
+    color: cyan;
+    width: 130px;
+    /* border: 1px red solid; */
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.2rem;
+
+}

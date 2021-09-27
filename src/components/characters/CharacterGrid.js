@@ -5,6 +5,35 @@ import Spinner from "../ui/Spinner";
 import ApiError from "../ui/ApiError";
 
 const CharacterGrid = (props) => {
+
+
+  const transformResults = (itemResult) => {
+        const loadedItems = [];
+  
+        // console.log(itemResult);
+  
+        for (let item of itemResult) {
+          loadedItems.push({
+            id: item.char_id,
+            name: item.name,
+            nickname: item.nickname,
+            img: item.img,
+            portrayed: item.portrayed,
+            status: item.status,
+            birthday: item.birthday,
+          });
+        }
+
+        return loadedItems;
+  
+        // setItems(loadedItems);
+  
+        // setItems(itemResult);
+      };
+
+
+
+
   if (props.isLoading) {
     return <Spinner />;
   }
@@ -27,10 +56,14 @@ const CharacterGrid = (props) => {
     );
   }
 
+
+  const items = transformResults(props.items);
+
+
   return (
     <section className="cards">
-      {props.items.map((item) => (
-        <CharacterItem key={item.char_id} item={item} />
+      {items.map((item) => (
+        <CharacterItem key={item.id} item={item} />
       ))}
     </section>
   );

@@ -6,7 +6,7 @@ const CharacterItem = ({ item }) => {
   let history = useHistory();
 
   const cardClickHandler = () => {
-    history.push(`/profile/${item.char_id}`)
+    history.push(`/profile/${item.id}`)
   }
 
   return (
