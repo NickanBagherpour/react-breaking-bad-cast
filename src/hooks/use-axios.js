@@ -1,6 +1,6 @@
 import { useCallback, useReducer } from "react";
 
-import api from "../components/services/api";
+import api from "../services/api";
 
 const ACTIONS = {
   SUCCESS: "success",
@@ -75,7 +75,7 @@ const useAxios = () => {
 
       const data = await response.data;
 
-      // console.log(data);
+      console.log(data);
       dispatch({ type: ACTIONS.SUCCESS, data: data });
 
       if (applyData !== undefined) applyData(data);
