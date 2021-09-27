@@ -1,4 +1,4 @@
-import { useState, useCallback, useReducer } from "react";
+import { useCallback, useReducer } from "react";
 
 import api from "../components/services/api";
 
@@ -22,7 +22,7 @@ const userDetailsReducer = (state, action) => {
       let result;
 
       if (Array.isArray(action.data)) {
-        results = [...action.data];
+        results = action.data;
         result = null;
       } else {
         results = [];
@@ -32,7 +32,7 @@ const userDetailsReducer = (state, action) => {
         ...state,
         loading: false,
         result: result,
-        results: action.data,
+        results: results,
       };
     }
     case ACTIONS.ERROR: {
@@ -42,6 +42,8 @@ const userDetailsReducer = (state, action) => {
         error: action.error,
       };
     }
+    default :
+    return {};
   }
 };
 
@@ -73,7 +75,7 @@ const useAxios = () => {
 
       const data = await response.data;
 
-      console.log(data);
+      // console.log(data);
       dispatch({ type: ACTIONS.SUCCESS, data: data });
 
       if (applyData !== undefined) applyData(data);
@@ -89,6 +91,7 @@ const useAxios = () => {
   }, []);
 
   return {
+    pending,
     loading,
     error,
     request,

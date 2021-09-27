@@ -45,30 +45,29 @@ const Profile = (props) => {
 
   if (item) {
     content = (
- 
-        <div className={classes.card}>
-          <img src={item.img} alt="" className={classes.avatar} />
+    
+    <div className={classes.card}>
+        <img src={item.img} alt="" className={classes.avatar} />
 
-          <p className={classes.title}>{item.name}</p>
+        <p className={classes.title}>{item.name}</p>
 
-          <p className={classes["info-tile"]}>
-            <span>Nickname:</span> {item.nickname}
-          </p>
-          <p className={classes["info-tile"]}>
-            <span>Portrayed:</span> {item.portrayed}
-          </p>
-          <p className={classes["info-tile"]}>
-            <span>Birthday:</span> {item.birthday}
-          </p>
-          <p className={classes["info-tile"]}>
-            <span>Status:</span> {item.status}
-          </p>
-        </div>
- 
+        <p className={classes["info-tile"]}>
+          <span>Nickname:</span> {item.nickname}
+        </p>
+        <p className={classes["info-tile"]}>
+          <span>Portrayed:</span> {item.portrayed}
+        </p>
+        <p className={classes["info-tile"]}>
+          <span>Birthday:</span> {item.birthday}
+        </p>
+        <p className={classes["info-tile"]}>
+          <span>Status:</span> {item.status}
+        </p>
+      </div>
     );
   }
 
-  return  <Layout>{content}</Layout>;
+  return <Layout>{content}</Layout>;
 };
 
 export default Profile;

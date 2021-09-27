@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import useHttp from "../hooks/use-http";
 import useAxios from "../hooks/use-axios";
 import Search from "../components/ui/Search";
 import CharacterGrid from "../components/characters/CharacterGrid";
