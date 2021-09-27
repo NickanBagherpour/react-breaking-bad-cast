@@ -1,42 +1,36 @@
 import { useState, useCallback } from "react";
 import axios from "axios";
+import api from "../components/services/api";
 
 const useAxios = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const sendRequest = useCallback(async (requestConfig, applyData) => {
+  const request = useCallback(async (requestConfig, applyData) => {
     setIsLoading(true);
     setError(null);
     try {
-      /*
-  const result = await axios(
-        `https://www.breakingbadapi.com/api/characters?name=${query}`
-      );
-*/
 
-      /* const response = await fetch(requestConfig.url, {
-        method: requestConfig.method ? requestConfig.method : 'GET',
-        headers: requestConfig.headers ? requestConfig.headers : {},
-        body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
-      });*/
-
-      const response = await axios(requestConfig.url, {
+      // const response = await axios(requestConfig.url, {
+      //   method: requestConfig.method ? requestConfig.method : "GET",
+      //   headers: requestConfig.headers ? requestConfig.headers : {},
+      //   body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
+      // });
+      const response = await api(requestConfig.url, {
         method: requestConfig.method ? requestConfig.method : "GET",
         headers: requestConfig.headers ? requestConfig.headers : {},
         body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
       });
 
-      console.log(response);
-
-      if (!response.ok) {
-        throw new Error("Request failed!");
+      if (response.status !== 200) {
+        throw new Error(response.error || "Request failed!");
       }
 
-      const data = await response.json();
+      const data = await response.data;
+
       applyData(data);
     } catch (err) {
-      setError(err.message || "Something went wrong!");
+      setError(err.error || err.message || "Something went wrong!");
     }
     setIsLoading(false);
   }, []);
@@ -44,7 +38,7 @@ const useAxios = () => {
   return {
     isLoading,
     error,
-    sendRequest,
+    request,
   };
 };
 

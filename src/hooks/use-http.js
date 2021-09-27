@@ -4,7 +4,7 @@ const useHttp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const sendRequest = useCallback(async (requestConfig, applyData) => {
+  const request = useCallback(async (requestConfig, applyData) => {
     setIsLoading(true);
     setError(null);
     try {
@@ -20,6 +20,7 @@ const useHttp = () => {
       }
 
       const data = await response.json();
+
       applyData(data);
     } catch (err) {
       console.log(err);
@@ -31,7 +32,7 @@ const useHttp = () => {
   return {
     isLoading,
     error,
-    sendRequest,
+    request,
   };
 };
 

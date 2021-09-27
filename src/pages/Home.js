@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import useHttp from "../hooks/use-http";
+import useAxios from "../hooks/use-axios";
 import Search from "../components/ui/Search";
 
 import CharacterGrid from "../components/characters/CharacterGrid";
@@ -10,7 +11,8 @@ const Home = () => {
 
     const [items, setItems] = useState([]);
     const [query, setQuery] = useState("");
-    const { isLoading, error, sendRequest: fetchItems } = useHttp();
+    // const { isLoading, error, request: fetchItems } = useHttp();
+    const { isLoading, error, request: fetchItems } = useAxios();
   
     useEffect(() => {
       const transformResults = (itemResult) => {
@@ -36,7 +38,7 @@ const Home = () => {
       };
   
       fetchItems(
-        { url: `https://www.breakingbadapi.com/api/characters?name=${query}` },
+        { url: `characters?name=${query}` },
         transformResults
       );
     }, [fetchItems, query]);
